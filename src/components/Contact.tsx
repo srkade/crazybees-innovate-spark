@@ -14,19 +14,19 @@ export const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      content: "info@crazybees.tech",
-      href: "mailto:info@crazybees.tech",
+      content: "crazybeesinnovationhub@gmail.com",
+      href: "mailto:crazybeesinnovationhub@gmail.com",
     },
     {
       icon: Phone,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      content: "+91 915667982",
+      href: "tel:+91 915667982",
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      content: "Innovation District, Tech Hub",
+      content: "Kharadi Pune",
       href: "#",
     },
   ];
