@@ -16,7 +16,8 @@ export const Services = () => {
         "Service and operator manuals",
         "Training content for precise knowledge transfer",
       ],
-      color: "from-blue-600 to-cyan-600",
+      gradient: "from-secondary to-primary",
+      iconBg: "from-secondary to-primary",
     },
     {
       icon: Code2,
@@ -27,7 +28,8 @@ export const Services = () => {
         "Addressing industry challenges to boost growth",
         "Flexible engagements from 100 annual hours minimum",
       ],
-      color: "from-purple-600 to-pink-600",
+      gradient: "from-primary to-accent",
+      iconBg: "from-primary to-accent",
     },
     {
       icon: Palette,
@@ -38,12 +40,16 @@ export const Services = () => {
         "Hydraulic and pneumatic schematics",
         "Immersive animations",
       ],
-      color: "from-orange-600 to-yellow-600",
+      gradient: "from-accent to-orange-light",
+      iconBg: "from-accent to-orange-light",
     },
   ];
 
   return (
-    <section id="services" ref={ref} className="py-20 px-4 relative">
+    <section id="services" ref={ref} className="py-24 px-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -51,10 +57,20 @@ export const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <motion.span
+            className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            What We Offer
+          </motion.span>
+          
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 font-display">
             <span className="gradient-text">Comprehensive Service Portfolio</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Diverse, tailored solutions to drive industry success with flexible engagement models
           </p>
         </motion.div>
@@ -71,43 +87,52 @@ export const Services = () => {
                 whileHover={{ y: -10 }}
                 className="group"
               >
-                <div className="relative p-8 bg-card rounded-3xl tech-border card-glow h-full overflow-hidden">
-                  {/* Animated gradient background */}
+                <div className="relative p-8 glass rounded-3xl h-full overflow-hidden">
+                  {/* Animated background gradient */}
                   <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity }}
+                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
                   />
+                  
+                  {/* Honeycomb pattern overlay on hover */}
+                  <div className="absolute inset-0 honeycomb-bg opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
 
                   <div className="relative z-10">
-                    <div className={`mb-6 inline-flex p-5 bg-gradient-to-br ${service.color} rounded-2xl shadow-xl group-hover:shadow-2xl transition-shadow duration-300`}>
-                      <Icon className="w-12 h-12 text-white" />
-                    </div>
+                    <motion.div 
+                      className={`mb-6 inline-flex p-5 bg-gradient-to-br ${service.iconBg} rounded-2xl shadow-xl`}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <Icon className="w-10 h-10 text-primary-foreground" />
+                    </motion.div>
 
-                    <h3 className="text-2xl font-bold mb-6 text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="text-2xl font-bold mb-6 text-foreground group-hover:text-primary transition-colors font-display">
                       {service.title}
                     </h3>
 
-                    <ul className="space-y-3">
+                    <ul className="space-y-4">
                       {service.items.map((item, i) => (
                         <motion.li
                           key={i}
                           initial={{ opacity: 0, x: -20 }}
                           animate={isInView ? { opacity: 1, x: 0 } : {}}
                           transition={{ delay: index * 0.2 + i * 0.1 }}
-                          className="flex items-start gap-3 text-muted-foreground group-hover:text-foreground transition-colors"
+                          className="flex items-start gap-3 text-muted-foreground group-hover:text-foreground/80 transition-colors"
                         >
-                          <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary group-hover:bg-accent transition-colors flex-shrink-0" />
+                          <motion.div 
+                            className={`mt-2 w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient} flex-shrink-0`}
+                            whileHover={{ scale: 1.5 }}
+                          />
                           <span className="leading-relaxed">{item}</span>
                         </motion.li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Corner accent */}
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.color} opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-500`} />
+                  {/* Decorative corner glow */}
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl group-hover:opacity-25 transition-opacity duration-500`} />
+                  
+                  {/* Border gradient */}
+                  <div className={`absolute inset-0 rounded-3xl p-px bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-50 transition-opacity duration-500 -z-10`} />
                 </div>
               </motion.div>
             );
